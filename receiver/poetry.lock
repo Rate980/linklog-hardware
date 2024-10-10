@@ -62,7 +62,23 @@ files = [
 [package.extras]
 cli = ["click (>=5.0)"]
 
+[[package]]
+name = "sliplib"
+version = "0.6.2"
+description = "Slip package"
+optional = false
+python-versions = "*"
+files = [
+    {file = "sliplib-0.6.2-py3-none-any.whl", hash = "sha256:43622142805e08b0671210935b47f2d45cb94db84ffbba8660665750d0fde4e3"},
+    {file = "sliplib-0.6.2.tar.gz", hash = "sha256:443f480339927c2a192783626dcab6eb1726e2ec78ce35405ff4935316138b29"},
+]
+
+[package.extras]
+dev = ["mypy", "pylint", "pytest (>=5.4)", "pytest-cov", "pytest-mock", "pytest-pylint", "sphinx", "sphinx-rtd-theme", "tox", "twine", "wheel"]
+docs = ["sphinx", "sphinx-rtd-theme"]
+test = ["mypy", "pylint", "pytest (>=5.4)", "pytest-cov", "pytest-mock", "pytest-pylint"]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "684e4bd293f24164e15add6ce00c60ee5c43e171171a85e00ab2b3002d1cbff8"
+content-hash = "984d1b0dd8b3bbeb1f25ff6e8bc50aecc112c543b01b4232cc7b9a43e10e0f6e"
