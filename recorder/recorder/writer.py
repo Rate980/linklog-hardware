@@ -13,8 +13,8 @@ class Writer(metaclass=abc.ABCMeta):
 
 
 class SerialWriter(Writer):
-    def __init__(self, port, baudrate) -> None:
-        self.serial = Serial(port, baudrate)
+    def __init__(self, port: Serial) -> None:
+        self.serial = port
 
     def write(self, data: bytes) -> None:
         time.sleep(0.001)

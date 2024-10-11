@@ -1,8 +1,8 @@
 import os
-import stat
 import time
 import wave
 
+import serial
 from dotenv import load_dotenv
 
 from .encoder import Mp3EncoderStream
@@ -17,7 +17,8 @@ load_dotenv()
 def main():
     main5()
     connect_senser = PigpioSense(17)
-    writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BANDRATE"])
+    port = serial.Serial(os.environ["TTY_PATH"], int(os.environ["BANDRATE"]))
+    writer = SerialWriter(port)
     streamReader = StreamReader(connect_senser, writer)
     stream = MicStream(streamReader)
     stream.stream.start_stream()
@@ -42,7 +43,8 @@ def main1():
 
 def main2():
     connect_sensor = Stub()
-    writer = SerialWriter("/dev/pts/9", 115200)
+    port = serial.Serial("/dev/pts/9", 115200)
+    writer = SerialWriter(port)
 
     connect_sensor._is_connect = True
     streamReader = StreamReader(connect_sensor, writer)
@@ -65,14 +67,16 @@ def main3():
 
 
 def main4():
-    writer = SerialWriter("/dev/pts/9", 115200)
+    port = serial.Serial("/dev/pts/9", 115200)
+    writer = SerialWriter(port)
     with open("testdatas/testdata.bin", "rb") as f:
         writer.write(f.read())
 
 
 def main5():
     connect_sensor = PigpioSense(17)
-    writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BANDRATE"])
+    port = serial.Serial(os.environ["TTY_PATH"], int(os.environ["BANDRATE"]))
+    writer = SerialWriter(port)
     old_state = connect_sensor.is_connect()
     data = b"\xde\xad\xbe\xef" * 10
     while True:
