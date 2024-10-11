@@ -1,4 +1,5 @@
 import os
+import stat
 import time
 import wave
 
@@ -14,6 +15,7 @@ load_dotenv()
 
 
 def main():
+    main5()
     connect_senser = PigpioSense(17)
     writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BANDRATE"])
     streamReader = StreamReader(connect_senser, writer)
@@ -66,3 +68,19 @@ def main4():
     writer = SerialWriter("/dev/pts/9", 115200)
     with open("testdatas/testdata.bin", "rb") as f:
         writer.write(f.read())
+
+
+def main5():
+    connect_sensor = PigpioSense(17)
+    writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BANDRATE"])
+    old_state = connect_sensor.is_connect()
+    with open("testdata/testdata.bin", "rb") as f:
+        data = f.read()
+    while True:
+        state = connect_sensor.is_connect()
+
+        if state and not old_state:
+            print("Connect")
+            writer.write(data)
+
+        old_state = state
