@@ -74,7 +74,7 @@ def main5():
     connect_sensor = PigpioSense(17)
     writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BANDRATE"])
     old_state = connect_sensor.is_connect()
-    with open("testdata/testdata.bin", "rb") as f:
+    with open("testdatas/testdata.bin", "rb") as f:
         data = f.read()
     while True:
         state = connect_sensor.is_connect()
