@@ -27,7 +27,7 @@ class MicStream:
     ) -> None:
         self.audio = pyaudio.PyAudio()
         self.streamReader = streamReader
-        self.stream = self.stream.open(
+        self.stream = self.audio.open(
             format=format,
             channels=channels,
             rate=sample_rate,
