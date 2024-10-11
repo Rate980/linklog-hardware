@@ -52,5 +52,5 @@ def main3():
 
 def main4():
     writer = SerialWriter("/dev/pts/9", 115200)
-    with open("testdata.bin", "rb") as f:
+    with open("testdatas/testdata.bin", "rb") as f:
         writer.write(f.read())
