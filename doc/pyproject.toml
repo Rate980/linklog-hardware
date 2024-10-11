@@ -12,6 +12,7 @@ python-dotenv = "^1.0.1"
 getch = "^1.0"
 openai = "0.28"
 pyserial = "^3.5"
+sliplib = "^0.6.2"
 
 
 [build-system]
