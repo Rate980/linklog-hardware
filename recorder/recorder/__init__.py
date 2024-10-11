@@ -1,3 +1,4 @@
+import os
 import time
 import wave
 
@@ -14,7 +15,7 @@ load_dotenv()
 
 def main():
     connect_senser = PigpioSense(17)
-    writer = SerialWriter("/dev/pts/9", 115200)
+    writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BAUDRATE"])
     streamReader = StreamReader(connect_senser, writer)
     stream = MicStream(streamReader)
     stream.stream.start_stream()
