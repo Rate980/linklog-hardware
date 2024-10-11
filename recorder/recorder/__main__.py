@@ -1,3 +1,3 @@
-from receiver import main
+from . import main
 
 main()

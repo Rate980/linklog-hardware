@@ -3,8 +3,7 @@ from abc import abstractmethod
 
 import pyaudio
 
-from receiver import encoder
-
+from . import encoder
 from .gpio import ConnectSense
 from .writer import Writer
 

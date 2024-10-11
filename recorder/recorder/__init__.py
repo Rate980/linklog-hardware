@@ -4,10 +4,11 @@ from .encoder import Mp3EncoderStream
 from .gpio import PigpioSense
 from .stream import StreamReader
 from .stub import Stub
+from .writer import SerialWriter
 
 
 def main():
-    main2()
+    main4()
 
 
 def main1():
@@ -26,7 +27,8 @@ def main1():
 
 
 def main2():
-    connect_sensor = writer = Stub()
+    connect_sensor = Stub()
+    writer = SerialWriter("/dev/pts/9", 115200)
 
     connect_sensor._is_connect = True
     streamReader = StreamReader(connect_sensor, writer)
@@ -46,3 +48,9 @@ def main3():
     connect_sensor = PigpioSense(17)
     while True:
         print(connect_sensor.is_connect())
+
+
+def main4():
+    writer = SerialWriter("/dev/pts/9", 115200)
+    with open("testdata.bin", "rb") as f:
+        writer.write(f.read())
