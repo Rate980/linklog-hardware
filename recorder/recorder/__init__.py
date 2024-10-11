@@ -1,14 +1,25 @@
+import time
 import wave
+
+from dotenv import load_dotenv
 
 from .encoder import Mp3EncoderStream
 from .gpio import PigpioSense
-from .stream import StreamReader
+from .stream import MicStream, StreamReader
 from .stub import Stub
 from .writer import SerialWriter
 
+load_dotenv()
+
 
 def main():
-    main4()
+    connect_senser = PigpioSense(17)
+    writer = SerialWriter("/dev/pts/9", 115200)
+    streamReader = StreamReader(connect_senser, writer)
+    stream = MicStream(streamReader)
+    stream.stream.start_stream()
+    while stream.stream.is_active():
+        time.sleep(1)
 
 
 def main1():
