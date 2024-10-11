@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "receiver"
+name = "recorder"
 version = "0.1.0"
 description = ""
 authors = ["Rate980 <2220208@ecc.ac.jp>"]
