@@ -1,6 +1,7 @@
 import wave
 
 from .encoder import Mp3EncoderStream
+from .gpio import PigpioSense
 from .stream import StreamReader
 from .stub import Stub
 
@@ -39,3 +40,9 @@ def main2():
     connect_sensor._is_connect = True
     data = b"\x00" * 1024 * 2
     streamReader.callback(data, 1024, None, None)
+
+
+def main3():
+    connect_sensor = PigpioSense(17)
+    while True:
+        print(connect_sensor.is_connect())
