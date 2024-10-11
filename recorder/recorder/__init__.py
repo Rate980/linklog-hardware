@@ -80,6 +80,7 @@ def main5():
 
         if state and not old_state:
             print("Connect")
+            time.sleep(1)
             writer.write(data)
 
         old_state = state
