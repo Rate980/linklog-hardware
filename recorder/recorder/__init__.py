@@ -15,7 +15,7 @@ load_dotenv()
 
 def main():
     connect_senser = PigpioSense(17)
-    writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BAUDRATE"])
+    writer = SerialWriter(os.environ["TTY_PATH"], os.environ["BANDRATE"])
     streamReader = StreamReader(connect_senser, writer)
     stream = MicStream(streamReader)
     stream.stream.start_stream()
