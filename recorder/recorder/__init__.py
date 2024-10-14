@@ -16,7 +16,29 @@ _log = logging.getLogger(__name__)
 load_dotenv()
 
 
+def log_level(text: str | None):
+    match text:
+        case "DEBUG":
+            return logging.DEBUG
+        case "INFO":
+            return logging.INFO
+        case "WARNING":
+            return logging.WARNING
+        case "ERROR":
+            return logging.ERROR
+        case "CRITICAL":
+            return logging.CRITICAL
+        case _:
+            return logging.WARNING
+
+
+def setup_logger():
+    lob_level = log_level(os.environ.get("LOG_LEVEL"))
+    logging.basicConfig(level=lob_level)
+
+
 def main():
+    setup_logger()
     _log.info("Start")
     connect_senser = PigpioSense(17)
     port_path = os.environ["TTY_PATH"]

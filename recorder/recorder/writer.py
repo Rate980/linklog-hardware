@@ -1,10 +1,13 @@
 import abc
+import logging
 import time
 import wave
 from abc import abstractmethod
 
 import sliplib
 from serial import Serial
+
+_log = logging.getLogger(__name__)
 
 
 class Writer(metaclass=abc.ABCMeta):
@@ -20,11 +23,13 @@ class SerialWriter(Writer):
     def write(self, data: bytes) -> None:
         time.sleep(0.001)
         data = sliplib.encode(data)
+        _log.info("write data")
         num = self.serial.write(data)
         if num != len(data):
             raise Exception("Failed to write data")
 
         self.serial.flush()
+        _log.info("write done")
 
 
 class WaveWriter(Writer):
