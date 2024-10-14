@@ -1,5 +1,6 @@
 import abc
 import time
+import wave
 from abc import abstractmethod
 
 import sliplib
@@ -24,3 +25,14 @@ class SerialWriter(Writer):
             raise Exception("Failed to write data")
 
         self.serial.flush()
+
+
+class WaveWriter(Writer):
+    def write(self, data: bytes) -> None:
+        with wave.open("audio_data.wav", "wb") as wf:
+            wf.setnchannels(1)
+            wf.setsampwidth(2)
+            wf.setframerate(44100)
+            wf.writeframes(data)
+
+
