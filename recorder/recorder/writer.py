@@ -34,5 +34,3 @@ class WaveWriter(Writer):
             wf.setsampwidth(2)
             wf.setframerate(44100)
             wf.writeframes(data)
-
-
