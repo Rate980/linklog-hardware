@@ -86,5 +86,6 @@ def main5():
             print("Connect")
             time.sleep(1)
             writer.write(data)
+            print("done")
 
         old_state = state
