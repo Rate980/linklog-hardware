@@ -1,4 +1,5 @@
 import abc
+import logging
 from abc import abstractmethod
 
 import pyaudio
@@ -6,6 +7,8 @@ import pyaudio
 from . import encoder
 from .gpio import ConnectSense
 from .writer import Writer
+
+_log = logging.getLogger(__name__)
 
 
 class PyaudoStreamReader(metaclass=abc.ABCMeta):
@@ -55,8 +58,12 @@ class StreamReader(PyaudoStreamReader):
         self.audio_data = bytearray()
 
     def callback(self, in_data, frame_count, time_info, status):
+        _log.debug("callback")
         is_connect = self.coenact_sense.is_connect()
         is_connected = self.is_connected
+
+        _log.debug(f"is_connect: {is_connect}")
+        _log.debug(f"is_connected: {is_connected}")
         self.is_connected = is_connect
         self.callback_input(
             in_data, frame_count, time_info, status, is_connect, is_connected
@@ -68,12 +75,12 @@ class StreamReader(PyaudoStreamReader):
     ) -> None:
         if is_connect:
             if not is_connected:
-                print("Connect")
+                _log.info("Connect")
                 self.writer.write(encoder.encode(self.audio_data))
 
         else:
             if is_connected:
-                print("Disconnect")
+                _log.info("Disconnect")
                 self.audio_data.clear()
 
             self.audio_data.extend(in_data)

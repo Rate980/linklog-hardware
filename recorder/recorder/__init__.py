@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 import wave
@@ -9,19 +10,25 @@ from .encoder import Mp3EncoderStream
 from .gpio import PigpioSense
 from .stream import MicStream, StreamReader
 from .stub import Stub
-from .writer import SerialWriter, WaveWriter
+from .writer import SerialWriter
 
+_log = logging.getLogger(__name__)
 load_dotenv()
 
 
 def main():
+    _log.info("Start")
     connect_senser = PigpioSense(17)
-    port = serial.Serial(os.environ["TTY_PATH"], int(os.environ["BANDRATE"]))
+    port_path = os.environ["TTY_PATH"]
+    bandrate = int(os.environ["BANDRATE"])
+    _log.debug(f"serial port: {port_path}, bandrate: {bandrate}")
+    port = serial.Serial(port_path, bandrate)
     writer = SerialWriter(port)
-    #writer = Stub()
     streamReader = StreamReader(connect_senser, writer)
+    _log.info("Audio start")
     stream = MicStream(streamReader)
     stream.stream.start_stream()
+    _log.info("stream start")
     while stream.stream.is_active():
         time.sleep(1)
 
